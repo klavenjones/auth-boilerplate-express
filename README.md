@@ -1,2 +1,3 @@
 # auth-boilerplate-express
-Authentication Boilerplate 
+
+An authentication boilerplate
