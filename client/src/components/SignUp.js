@@ -81,7 +81,7 @@ class SignUp extends Component {
               Or sign up using third-party services
             </div>
             <FacebookLogin
-              appId={"605470970245988"}
+              appId={""}
               render={renderProps => (
                 <button
                   style={{ marginRight: 15 }}
@@ -96,7 +96,7 @@ class SignUp extends Component {
               cssClass="btn btn-outline-primary"
             />
             <GoogleLogin
-              clientId="867153126461-nr3o930c9em7dg4jm46p0ojo2pcfeql5.apps.googleusercontent.com"
+              clientId=""
               render={renderProps => (
                 <button
                   className="btn btn-danger"
