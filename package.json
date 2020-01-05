@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/klavenjones/auth-boilerplate-express#readme",
   "dependencies": {
-    "@hapi/joi": "^16.1.8",
+    "@hapi/joi": "^17.0.0",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -32,7 +32,7 @@
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.3",
+    "mongoose": "^5.8.4",
     "morgan": "^1.9.1",
     "passport": "^0.4.1",
     "passport-facebook-token": "^3.3.0",
