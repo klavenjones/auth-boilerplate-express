@@ -53,9 +53,6 @@ passport.use(
       clientSecret: config.google.clientSecret
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log("Access Token", accessToken);
-      console.log("Refresh Token", refreshToken);
-      console.log("profile", profile);
       try {
         //Check if user exists in our database
         let existingUser = await User.findOne({ "google.id": profile.id });
