@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import LinkedIn from "linkedin-login-for-react";
 
 import * as actions from "../actions";
 import CustomInput from "./CustomInput";
@@ -14,6 +15,7 @@ class SignUp extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.responseGoogle = this.responseGoogle.bind(this);
     this.responseFacebook = this.responseFacebook.bind(this);
+    this.responseLinkedIn = this.responseLinkedIn.bind(this);
   }
 
   async onSubmit(formData) {
@@ -32,6 +34,12 @@ class SignUp extends Component {
 
   async responseFacebook(res) {
     await this.props.oauthFacebook(res.accessToken);
+    if (!this.props.errorMessage) {
+      this.props.history.push("/dashboard");
+    }
+  }
+  async responseLinkedIn(error, token, redirectURI) {
+    error ? console.log("ERROR") : await this.props.oauthLinkedIn(token);
     if (!this.props.errorMessage) {
       this.props.history.push("/dashboard");
     }
@@ -96,10 +104,11 @@ class SignUp extends Component {
               cssClass="btn btn-outline-primary"
             />
             <GoogleLogin
-              clientId=""
+              clientId="867153126461-nr3o930c9em7dg4jm46p0ojo2pcfeql5.apps.googleusercontent.com"
               render={renderProps => (
                 <button
                   className="btn btn-danger"
+                  style={{ marginRight: 15 }}
                   onClick={renderProps.onClick}
                   disabled={renderProps.disabled}
                 >
@@ -109,6 +118,13 @@ class SignUp extends Component {
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
               className="btn btn-outline-danger"
+            />
+            <LinkedIn
+              clientId="78zuuvxssdvxs6"
+              callback={this.responseLinkedIn}
+              scope={["r_emailaddress", "r_liteprofile"]}
+              text="LinkedIn"
+              className="btn btn-primary"
             />
           </div>
         </div>

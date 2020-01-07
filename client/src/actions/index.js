@@ -23,6 +23,19 @@ export const oauthGoogle = data => {
   };
 };
 
+export const oauthLinkedIn = data => {
+  console.log(data);
+  return async dispatch => {
+    await axios.post("http://localhost:5000/users/oauth/linkedin", {
+      access_token: data
+    });
+
+    dispatch({
+      type: AUTH_SIGN_UP
+    });
+  };
+};
+
 export const linkGoogle = data => {
   return async dispatch => {
     const res = await axios.post(

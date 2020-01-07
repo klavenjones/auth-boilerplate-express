@@ -96,7 +96,7 @@ class SignIn extends Component {
               cssClass="btn btn-outline-primary"
             />
             <GoogleLogin
-              clientId=""
+              clientId="867153126461-nr3o930c9em7dg4jm46p0ojo2pcfeql5.apps.googleusercontent.com"
               render={renderProps => (
                 <button
                   className="btn btn-danger"

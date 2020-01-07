@@ -1194,13 +1194,10 @@ passport-jwt@^4.0.0:
     jsonwebtoken "^8.2.0"
     passport-strategy "^1.0.0"
 
-passport-linkedin-token@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/passport-linkedin-token/-/passport-linkedin-token-0.1.1.tgz#fb7ba6f4fa24bc53fd374b1672003dbdc3716aa4"
-  integrity sha1-+3um9PokvFP9N0sWcgA9vcNxaqQ=
-  dependencies:
-    passport-oauth "0.1.x"
-    pkginfo "0.2.x"
+passport-linkedin-token-v2@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/passport-linkedin-token-v2/-/passport-linkedin-token-v2-1.0.1.tgz#75a9f7a9d7b31cae197daf496668ab57838fdc45"
+  integrity sha512-TS5xYtkFWdDzSQTk7R09eFeINdlsgSRWpvz0qpZp+1WnyD5Nak6QfUvcQc0RzLFkEdX3BhYE0Njs7/q9/7ZJhQ==
 
 passport-local@^1.0.0:
   version "1.0.0"
@@ -1229,15 +1226,6 @@ passport-oauth2@1.x.x:
     uid2 "0.0.x"
     utils-merge "1.x.x"
 
-passport-oauth@0.1.x:
-  version "0.1.15"
-  resolved "https://registry.yarnpkg.com/passport-oauth/-/passport-oauth-0.1.15.tgz#fb74e0afe84614bfa256c5fc716cc56bbfc8cec0"
-  integrity sha1-+3Tgr+hGFL+iVsX8cWzFa7/IzsA=
-  dependencies:
-    oauth "0.9.x"
-    passport "~0.1.1"
-    pkginfo "0.2.x"
-
 passport-oauth@1.0.0, passport-oauth@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/passport-oauth/-/passport-oauth-1.0.0.tgz#90aff63387540f02089af28cdad39ea7f80d77df"
@@ -1258,14 +1246,6 @@ passport@^0.4.1:
   dependencies:
     passport-strategy "1.x.x"
     pause "0.0.1"
-
-passport@~0.1.1:
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/passport/-/passport-0.1.18.tgz#c8264479dcb6414cadbb66752d12b37e0b6525a1"
-  integrity sha1-yCZEedy2QUytu2Z1LRKzfgtlJaE=
-  dependencies:
-    pause "0.0.1"
-    pkginfo "0.2.x"
 
 path-exists@^3.0.0:
   version "3.0.0"

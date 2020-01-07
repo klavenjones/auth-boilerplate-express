@@ -21,12 +21,10 @@ module.exports = {
 
     // //CHECK IF EMAIL EXISTS
     let user = await User.findOne({ "local.email": email });
-
     if (user) {
       console.log(user);
       return res.status(409).json({ error: "User Already exists" });
     }
-
     // //IS THERE A OUTSIDE ACCOUNT (google, facebook, linkedin) WITH THE SAME EMAIL
     user = await User.findOne({
       $or: [
@@ -91,7 +89,15 @@ module.exports = {
   },
 
   facebookOAuth: async (req, res, next) => {
-    console.log("FACEBOOK");
+    // Generate token
+    const token = signToken(req.user);
+    res.cookie("access_token", token, {
+      httpOnly: true
+    });
+    res.status(200).json({ success: true, token: token });
+  },
+
+  linkedInOAuth: async (req, res, next) => {
     // Generate token
     const token = signToken(req.user);
     res.cookie("access_token", token, {
@@ -108,7 +114,7 @@ module.exports = {
     });
   },
   signOut: async (req, res, next) => {
-    res.clearCookie('access_token');
+    res.clearCookie("access_token");
     // console.log('I managed to get here!');
     res.json({ success: true });
   },

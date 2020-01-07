@@ -19,9 +19,9 @@ const PassportFacebookToken = passport.authenticate("facebook-token", {
   session: false
 });
 
-// const PassportLinkedInToken = passport.authenticate("linkedin-token", {
-//   session: false
-// });
+const PassportLinkedInToken = passport.authenticate("linkedin-token", {
+  session: false
+});
 const PassportConfiguration = require("../passport");
 
 router.get("/dashboard", PassportJWT, userController.dashboard);
@@ -47,6 +47,11 @@ router.post(
   "/oauth/facebook",
   PassportFacebookToken,
   userController.facebookOAuth
+);
+router.post(
+  "/oauth/linkedin",
+  PassportLinkedInToken,
+  userController.linkedInOAuth
 );
 
 // router.post(

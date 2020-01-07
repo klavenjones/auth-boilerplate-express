@@ -6,6 +6,7 @@ const ExtractJwt = require("passport-jwt").ExtractJwt;
 const LocalStrategy = require("passport-local").Strategy;
 const GoogleTokenStrategy = require("passport-google-token").Strategy;
 const FaceBookTokenStrategy = require("passport-facebook-token");
+const LinkedInTokenStrategy = require("passport-linkedin-token-v2");
 
 //Config
 const config = require("./config");
@@ -152,57 +153,58 @@ passport.use(
 );
 
 //Linkedin OAUTH STRATEGY
-// passport.use(
-//   "linkedin-token",
-//   new LinkedInTokenStrategy(
-//     {
-//       clientID: config.linkedin.clientID,
-//       clientSecret: config.linkedin.clientSecret,
-//       scope: ["r_emailaddress", "r_liteprofile"]
-//     },
-//     async (accessToken, refreshToken, profile, done) => {
-//       console.log("Access Token", accessToken);
-//       console.log("Refresh Token", refreshToken);
-//       console.log("profile", profile);
-//       //   try {
-//       //     //     //Check if user exists in our database
-//       //     //     let existingUser = await User.findOne({ "facebook.id": profile.id });
-//       //     //     if (existingUser) {
-//       //     //       return done(null, existingUser);
-//       //     //     }
-//       //     //     // Check if we have someone with the same email
-//       //     //     existingUser = await User.findOne({
-//       //     //       "local.email": profile.emails[0].value
-//       //     //     });
-//       //     //     if (existingUser) {
-//       //     //       console.log("MERGING USER");
-//       //     //       // We want to merge provider's data with local auth
-//       //     //       existingUser.methods.push("facebook");
-//       //     //       existingUser.facebook = {
-//       //     //         id: profile.id,
-//       //     //         email: profile.emails[0].value
-//       //     //       };
-//       //     //       await existingUser.save();
-//       //     //       return done(null, existingUser);
-//       //     //     }
-//       //     //     //Create New Google User
-//       //     //     const newUser = new User({
-//       //     //       methods: ["facebook"],
-//       //     //       google: {
-//       //     //         id: profile.id,
-//       //     //         email: profile.emails[0].value
-//       //     //       }
-//       //     //     });
-//       //     //     //Saving user
-//       //     //     console.log("NEW USER");
-//       //     //     await newUser.save();
-//       //     //     done(null, newUser);
-//       //   } catch (error) {
-//       //     done(error, false, error.message);
-//       //   }
-//     }
-//   )
-// );
+passport.use(
+  "linkedin-token",
+  new LinkedInTokenStrategy(
+    {
+      clientID: config.linkedin.clientID,
+      clientSecret: config.linkedin.clientSecret,
+      redirectURL: config.linkedin.redirectURL,
+      scope: ["r_emailaddress", "r_liteprofile"]
+    },
+    async (req, accessToken, refreshToken, profile, done) => {
+      console.log("Access Token", accessToken);
+      console.log("Refresh Token", refreshToken);
+      console.log("profile", profile);
+      try {
+        //Check if user exists in our database
+        let existingUser = await User.findOne({ "linkedin.id": profile.id });
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+        // Check if we have someone with the same email
+        existingUser = await User.findOne({
+          "local.email": profile.emails[0].value
+        });
+        if (existingUser) {
+          console.log("MERGING USER");
+          // We want to merge provider's data with local auth
+          existingUser.methods.push("linkedin");
+          existingUser.facebook = {
+            id: profile.id,
+            email: profile.emails[0].value
+          };
+          await existingUser.save();
+          return done(null, existingUser);
+        }
+        //Create New Google User
+        const newUser = new User({
+          methods: ["linkedin"],
+          google: {
+            id: profile.id,
+            email: profile.emails[0].value
+          }
+        });
+        //Saving user
+        console.log("NEW USER");
+        await newUser.save();
+        done(null, newUser);
+      } catch (error) {
+        done(error, false, error.message);
+      }
+    }
+  )
+);
 
 //Local Strategy
 passport.use(
