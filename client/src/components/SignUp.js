@@ -7,6 +7,7 @@ import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props
 import LinkedIn from "linkedin-login-for-react";
 
 import * as actions from "../actions";
+import config from "../config";
 import CustomInput from "./CustomInput";
 
 class SignUp extends Component {
@@ -39,7 +40,7 @@ class SignUp extends Component {
     }
   }
   async responseLinkedIn(error, token, redirectURI) {
-    error ? console.log("ERROR") : await this.props.oauthLinkedIn(token);
+    error ? console.log("ERROR") : await this.props.oauthLinkedInSignUp(token);
     if (!this.props.errorMessage) {
       this.props.history.push("/dashboard");
     }
@@ -89,7 +90,7 @@ class SignUp extends Component {
               Or sign up using third-party services
             </div>
             <FacebookLogin
-              appId={""}
+              appId={config.facebook.clientID}
               render={renderProps => (
                 <button
                   style={{ marginRight: 15 }}
@@ -104,7 +105,7 @@ class SignUp extends Component {
               cssClass="btn btn-outline-primary"
             />
             <GoogleLogin
-              clientId="867153126461-nr3o930c9em7dg4jm46p0ojo2pcfeql5.apps.googleusercontent.com"
+              clientId={config.google.clientID}
               render={renderProps => (
                 <button
                   className="btn btn-danger"
@@ -120,7 +121,7 @@ class SignUp extends Component {
               className="btn btn-outline-danger"
             />
             <LinkedIn
-              clientId="78zuuvxssdvxs6"
+              clientId={config.linkedin.clientID}
               callback={this.responseLinkedIn}
               scope={["r_emailaddress", "r_liteprofile"]}
               text="LinkedIn"
